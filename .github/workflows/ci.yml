@@ -64,8 +64,9 @@ jobs:
 
     - name: Lint JavaScript
       run: |
-        echo 'export default [];' > eslint.config.js
         eslint "**/*.js"
+
+#      echo 'export default [];' > eslint.config.js
 
     - name: Lint CSS
       run: |
