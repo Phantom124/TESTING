@@ -1,4 +1,4 @@
-name: Website CI
+name: TESTING
 
 on:
   push:
@@ -14,16 +14,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Validate HTML
-      uses: efpage/htmlhint-action@v1
+    - name: Validate HTML files (optional)
+      uses: Cyb3r-Jak3/html-validator-action@v1
       with:
-        files: '**/*.html'
+        directory: ./ # or specify a subfolder if your HTML is in one
 
     - name: Install PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'
+        php-version: '8.2' # Set PHP version you use
 
     - name: Validate PHP syntax
       run: |
         find . -name "*.php" -exec php -l {} \;
+
+    - name: Run PHP tests (optional)
+      if: false # set to true if you later add PHPUnit tests
+      run: |
+        ./vendor/bin/phpunit
