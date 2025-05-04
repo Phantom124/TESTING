@@ -57,14 +57,14 @@ jobs:
 
     - name: Install linters
       run: |
-        npm install -g htmlhint eslint stylelint stylelint-config-standard
+        npm install -g htmlhint eslint stylelint stylelint-config-standard postcss postcss-scss
 
     - name: Lint HTML
       run: htmlhint "**/*.html"
 
     - name: Lint JavaScript
       run: |
-        echo 'export default [];' > eslint.config.js
+        echo 'export default [];' > eslint.config.mjs
         eslint "**/*.js"
 
     - name: Lint CSS
