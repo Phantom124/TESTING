@@ -1,4 +1,40 @@
-name: TESTING
+# name: TESTING
+
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+
+# jobs:
+#   check-code:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
+
+#     - name: Set up Node.js (for HTMLHint)
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: '18'
+
+#     - name: Install HTMLHint
+#       run: npm install -g htmlhint
+
+#     - name: Validate HTML files
+#       run: htmlhint "**/*.html"
+
+#     - name: Install PHP
+#       uses: shivammathur/setup-php@v2
+#       with:
+#         php-version: '8.2'
+
+#     - name: Validate PHP syntax
+#       run: |
+#         find . -name "*.php" -exec php -l {} \;
+
+name: Website CI
 
 on:
   push:
@@ -7,23 +43,36 @@ on:
     branches: [ main ]
 
 jobs:
-  check-code:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Node.js (for HTMLHint)
+    - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18'
 
-    - name: Install HTMLHint
-      run: npm install -g htmlhint
+    - name: Install linters
+      run: |
+        npm install -g htmlhint eslint stylelint stylelint-config-standard
 
-    - name: Validate HTML files
+    - name: Lint HTML
       run: htmlhint "**/*.html"
+
+    - name: Lint JavaScript
+      run: |
+        echo '{}' > .eslintrc.json
+        eslint "**/*.js"
+
+    - name: Lint CSS
+      run: |
+        echo '{
+          "extends": "stylelint-config-standard"
+        }' > .stylelintrc.json
+        stylelint "**/*.css"
 
     - name: Install PHP
       uses: shivammathur/setup-php@v2
