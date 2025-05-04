@@ -14,10 +14,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # - name: Validate HTML
-    #   uses: marketplace-action/htmlhint@v1
-    #   with:
-    #     files: '**/*.html'
+    - name: Set up Node.js (for HTMLHint)
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install HTMLHint
+      run: npm install -g htmlhint
+
+    - name: Validate HTML files
+      run: htmlhint "**/*.html"
 
     - name: Install PHP
       uses: shivammathur/setup-php@v2
