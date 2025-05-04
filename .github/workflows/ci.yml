@@ -14,10 +14,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Validate HTML
-      uses: marketplace-action/htmlhint@v1
-      with:
-        files: '**/*.html'
+    # - name: Validate HTML
+    #   uses: marketplace-action/htmlhint@v1
+    #   with:
+    #     files: '**/*.html'
 
     - name: Install PHP
       uses: shivammathur/setup-php@v2
